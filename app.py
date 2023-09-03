@@ -36,15 +36,7 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     """List all available api routes."""
-    return (
-        f"sean's sqlalchemy-challenge flask app<br/>"
-        f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation<br/>"
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end><br/>"
-    )
+    return "sean's sqlalchemy-challenge flask app<br/>Available Routes:<br/>/api/v1.0/precipitation<br/>/api/v1.0/stations<br/>/api/v1.0/tobs<br/>/api/v1.0/<start><br/>/api/v1.0/<start>/<end><br/>"
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
@@ -69,9 +61,7 @@ def precipitation():
     session.close()
     all_precip = []
     for date, precip in precip_list:
-        precip_dict = {}
-        precip_dict["Date"] = date
-        precip_dict["Precipitation"] = precip
+        precip_dict = {"Date": date, "Precipitation": precip}
         all_precip.append(precip_dict)
 
     return jsonify(all_precip)
@@ -89,10 +79,7 @@ def stations():
     session.close()
     all_stations = []
     for station, name, count in station_list:
-        station_dict = {}
-        station_dict["Station"] = station
-        station_dict["Name"] = name
-        station_dict["Count"] = count
+        station_dict = {"Station": station, "Name": name, "Count": count}
         all_stations.append(station_dict)
 
     return jsonify(all_stations)
@@ -126,10 +113,7 @@ def tobs():
 
     all_tobs = []
     for station, date, tobs in most_active_hist_list:
-        dict = {}
-        dict["Station"] = station
-        dict["Date"] = date
-        dict["Temperature"] = tobs
+        dict = {"Station": station, "Date": date, "Temperature": tobs}
         all_tobs.append(dict)
 
     return jsonify(all_tobs)
@@ -146,10 +130,7 @@ def start_date(start):
     session.close()
     all_temps = []
     for tmin, tavg, tmax in results:
-        dict = {}
-        dict["Tmin"] = tmin
-        dict["Tavg"] = tavg
-        dict["Tmax"] = tmax
+        dict = {"Tmin": tmin, "Tavg": tavg, "Tmax": tmax}
         all_temps.append(dict)
 
     return jsonify(all_temps)
@@ -166,10 +147,7 @@ def start_end_date(start, end):
     session.close()
     all_temps = []
     for tmin, tavg, tmax in results:
-        dict = {}
-        dict["Tmin"] = tmin
-        dict["Tavg"] = tavg
-        dict["Tmax"] = tmax
+        dict = {"Tmin": tmin, "Tavg": tavg, "Tmax": tmax}
         all_temps.append(dict)
 
     return jsonify(all_temps)
